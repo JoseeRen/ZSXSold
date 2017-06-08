@@ -15,6 +15,18 @@ import android.app.Application;
  */
 
 public class MyApplication extends Application {
+    private static MyApplication myApplication;
+
+    public MyApplication() {
+        myApplication = this;
+    }
+
+    public static synchronized MyApplication getInstance() {
+        if (myApplication == null) {
+            myApplication = new MyApplication();
+        }
+        return myApplication;
+    }
     @Override
     public void onCreate() {
         super.onCreate();

@@ -8,23 +8,22 @@
 
 package com.ryw.zsxs.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.base.BaseActivity;
 
-import butterknife.ButterKnife;
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends AppCompatActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getContentViewResId() {
+        return R.layout.activity_main;
+    }
 
-        ButterKnife.bind(this);
-        Log.e("aa","ryw");
-        System.out.print("Test");
+    @Override
+    public void init(Bundle savedInstanceState) {
+
     }
 }

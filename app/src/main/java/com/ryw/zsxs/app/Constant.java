@@ -19,6 +19,10 @@ public class Constant {
 
 
     //url   请求的url
+    //接口根路径
+public static String HOSTNAME="http://api.chinaplat.com/getval_2017?";
+    //splash页面的ad
+    public static  String ACTION_GETADPIC="Action=getADpic";
 
 
 
