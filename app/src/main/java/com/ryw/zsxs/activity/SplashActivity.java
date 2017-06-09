@@ -12,9 +12,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.ADBean;
 import com.ryw.zsxs.utils.SharedPreferences;
+import com.ryw.zsxs.utils.XutilsHttp;
+
+import org.xutils.x;
 
 import java.io.File;
 
@@ -59,13 +65,43 @@ public class SplashActivity extends BaseActivity {
      * 初始化splash页面的ad图片
      */
     private void initADPic() {
-        String adPath= this.getFilesDir().getPath()+"ad.jpg";
+        final String adPath = Constant.SAVE_AD_PATH;
         File file = new File(adPath);
-        if (file.exists()){
+if (file.exists()){
 
-        }else {
+    x.image().bind(ivAd,adPath);
+}else {
+    XutilsHttp.getInstance().get(Constant.HOSTNAME + Constant.ACTION_GETADPIC, null, new XutilsHttp.XCallBack() {
+        @Override
+        public void onResponse(String result) {
+            Gson gson = new Gson();
+            ADBean adBean = gson.fromJson(result, ADBean.class);
 
+            XutilsHttp.getInstance().downLoadFile(adBean.getPic(), adPath,null, new XutilsHttp.XDownLoadCallBack() {
+                @Override
+                public void onResponse(File result) {
+
+                }
+
+                @Override
+                public void onLoading(long total, long current, boolean isDownloading) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+
+                @Override
+                public void onResponse(String result) {
+
+                }
+            });
         }
+    });
+}
+
     }
 
     @Override
