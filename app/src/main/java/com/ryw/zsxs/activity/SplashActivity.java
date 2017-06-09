@@ -10,6 +10,7 @@ package com.ryw.zsxs.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -80,7 +81,7 @@ if (file.exists()){
             XutilsHttp.getInstance().downLoadFile(adBean.getPic(), adPath,null, new XutilsHttp.XDownLoadCallBack() {
                 @Override
                 public void onResponse(File result) {
-
+                    Log.e(">>>>",result.getName());
                 }
 
                 @Override
