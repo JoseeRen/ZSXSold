@@ -14,26 +14,18 @@ package com.ryw.zsxs.app;
  */
 
 public class Constant {
-    public static final String SAVE_AD_PATH =MyApplication.getInstance().getFilesDir().getPath()+"/app_hy1.jpg" ;
+    public static final String SAVE_AD_PATH = MyApplication.getInstance().getFilesDir().getPath() + "/app_hy1.jpg";
     //config   应用的一些配置
-
 
 
     //url   请求的url
     //接口根路径
-public static String HOSTNAME="http://api.chinaplat.com/getval_2017?";
-    //splash页面的ad
-    public static  String ACTION_GETADPIC="Action=getADpic";
+    public static String HOSTNAME = "http://api.chinaplat.com/getval_2017?";
+    //splash页面的adurl
+    public static String ACTION_GETADPIC = "Action=getADpic";
 
 
-
-
-
-
-
-
-
-    private Constant(){
+    private Constant() {
 
     }
 }
