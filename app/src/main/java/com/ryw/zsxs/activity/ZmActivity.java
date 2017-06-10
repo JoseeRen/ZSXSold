@@ -22,6 +22,7 @@ public class ZmActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("acd","acd");
+
     }
 
 }
