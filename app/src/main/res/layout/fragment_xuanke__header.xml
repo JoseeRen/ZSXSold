@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="视频中心"
-
+            android:id="@+id/tv_title"
             android:textColor="#fff"
             android:textSize="22sp" />
 

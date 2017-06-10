@@ -6,14 +6,46 @@
   ~ Email renyaowei@foxmail.com
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/fragment_xuanke__header" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="选课" />
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/fragment_xuanke__header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_layout"
+        android:orientation="horizontal">
+
+        <q.rorbin.verticaltablayout.VerticalTabLayout
+            android:id="@+id/left_tab_layout"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#EDEDED"
+            app:indicator_color="#FFFFFF"
+            app:indicator_gravity="fill"
+            app:tab_height="50dp"
+            app:tab_mode="scrollable" />
+
+        <GridView
+            android:id="@+id/gv_courslist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="3dp"
+            android:numColumns="3"
+            android:padding="10dp"
+
+            android:verticalSpacing="8dp">
+
+
+        </GridView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

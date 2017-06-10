@@ -9,11 +9,14 @@
 package com.ryw.zsxs.base;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.ryw.zsxs.app.MyApplication;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,10 +28,11 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
     public static final String TAG = BaseFragment.class.getSimpleName();
     private View mRootView;
-    private Unbinder mUnbinder;
+    protected Context mContext= MyApplication.getInstance();
+    public Unbinder mUnbinder;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutResId(), container, false);
         mUnbinder = ButterKnife.bind(this, mRootView);
         init(savedInstanceState);
@@ -39,7 +43,7 @@ public abstract class BaseFragment extends Fragment {
     public abstract int getLayoutResId();
 
     @Override
-    public void onDestroyView() {
+    public final  void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
     }

@@ -218,7 +218,6 @@ public class XutilsHttp {
 
             @Override
             public void onFinished() {
-
             }
 
             @Override
@@ -235,6 +234,8 @@ public class XutilsHttp {
             }
         });
     }
+
+
 
 
     /**
@@ -261,7 +262,7 @@ public class XutilsHttp {
      * @param option
      */
     public void bindCircularImage(ImageView iv, String url, boolean option) {
-       if (option) {
+        if (option) {
             options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.duanwang_icon).setFailureDrawableId(R.mipmap.duanwang_icon).setCircular(true).build();
             x.image().bind(iv, url, options);
         } else {
@@ -319,12 +320,13 @@ public class XutilsHttp {
 
     /**
      * 文件 下载
+     *
      * @param url
      * @param savePath
      * @param maps
      * @param callBack
      */
-    public void downLoadFile(String url,String savePath, Map<String, String> maps, final XDownLoadCallBack callBack) {
+    public void downLoadFile(String url, String savePath, Map<String, String> maps, final XDownLoadCallBack callBack) {
 
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
@@ -407,6 +409,7 @@ public class XutilsHttp {
             public void run() {
                 if (callBack != null) {
                     callBack.onResponse(result);
+
                 }
             }
         });
@@ -415,6 +418,7 @@ public class XutilsHttp {
 
     public interface XCallBack {
         void onResponse(String result);
+
     }
 
 

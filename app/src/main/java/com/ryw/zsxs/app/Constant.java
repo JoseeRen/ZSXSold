@@ -23,6 +23,9 @@ public class Constant {
     public static String HOSTNAME = "http://api.chinaplat.com/getval_2017?";
     //splash页面的adurl
     public static String ACTION_GETADPIC = "Action=getADpic";
+    //获取课程分类列表
+    public static String ACTION_COURSETYPES = "Action=GetCourseTypesList";
+
 
 
     private Constant() {
