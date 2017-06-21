@@ -9,6 +9,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="match_parent">
 
     <include
@@ -29,13 +30,17 @@
             android:background="#EDEDED"
             app:indicator_color="#FFFFFF"
             app:indicator_gravity="fill"
-            app:tab_height="50dp"
+            app:tab_height="50dp"    android:focusable="false"
+
+
             app:tab_mode="scrollable" />
 
         <GridView
             android:id="@+id/gv_courslist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
+
             android:horizontalSpacing="3dp"
             android:numColumns="3"
             android:padding="10dp"
@@ -45,6 +50,11 @@
 
         </GridView>
 
+        <com.mingle.widget.ShapeLoadingView
+            android:id="@+id/loadView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
 

@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mingle.widget.ShapeLoadingView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
@@ -85,6 +86,9 @@ public class XuanKe_Fragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.loadView)
+    ShapeLoadingView loadView;
+    Unbinder unbinder1;
     //分类类型：0（视频），1（音频），2（读书），3（文章）  默认为0
     private int kc_types = 0;
     //考试 0    工作  1    生活2
@@ -116,6 +120,7 @@ public class XuanKe_Fragment extends BaseFragment {
                     Log.e("右侧显示", "ccccccc" + lastKC.get(0).getT_list().size());
                     MyListAdapter myListAdapter = new MyListAdapter(lastKC);
                     gvCourslist.setAdapter(myListAdapter);
+
                   /*  if (myListAdapter == null) {
                         myListAdapter = new MyListAdapter();
                         gvCourslist.setAdapter(myListAdapter);
@@ -130,6 +135,7 @@ public class XuanKe_Fragment extends BaseFragment {
     private HashMap<String, String> kcMap;
     private ArrayList<KCTypes> lastKC;
 
+
     class MyListAdapter extends BaseAdapter {
         private final ArrayList<KCTypes> list;
 
@@ -140,7 +146,6 @@ public class XuanKe_Fragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            Log.e("rywww", "getCount");
             return list.get(0).getT_list().size();
         }
 
@@ -158,10 +163,14 @@ public class XuanKe_Fragment extends BaseFragment {
         public View getView(int i, View contentView, ViewGroup viewGroup) {
             View view = View.inflate(mContext, R.layout.item_gridview, null);
             Button tv = (Button) view.findViewById(R.id.tv_item);
-tv.setFocusable(true);
-            tv.setEnabled(true);
-            tv.setText(list.get(0).getT_list().get(i).getName());
 
+            tv.setText(list.get(0).getT_list().get(i).getName());
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             return tv;
         }
     }
@@ -175,6 +184,8 @@ tv.setFocusable(true);
 
     @Override
     public void init(Bundle savedInstanceState) {
+        gvCourslist.setEmptyView(loadView);
+
         rgXuankeTopmenu.check(R.id.rb_xuanke_exam);
         initData();
         initEvent();
