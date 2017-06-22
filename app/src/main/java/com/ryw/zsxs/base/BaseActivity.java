@@ -60,7 +60,7 @@ public abstract class BaseActivity extends Activity {
 
     /**
      * Activity跳转
-     * @param context
+     * @param
      * @param targetActivity
      * @param bundle
      */

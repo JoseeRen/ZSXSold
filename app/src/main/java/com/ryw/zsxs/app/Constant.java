@@ -25,7 +25,8 @@ public class Constant {
     public static String ACTION_GETADPIC = "Action=getADpic";
     //获取课程分类列表
     public static String ACTION_COURSETYPES = "Action=GetCourseTypesList";
-
+    //	获取课程列表信息GetCourseList
+    public static  String ACTION_GETCOURSELIST="GetCourseList";
 
 
     private Constant() {

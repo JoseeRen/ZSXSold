@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.mingle.widget.ShapeLoadingView;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.XuanKeDetailActivity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.bean.KCTypes;
@@ -96,6 +97,7 @@ public class XuanKe_Fragment extends BaseFragment {
     private ArrayList<KCTypes> kcTypes;
     private ArrayList<KCTypes> kcTypesList;
     private MyListAdapter myListAdapter;
+    private String courseList;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -160,7 +162,7 @@ public class XuanKe_Fragment extends BaseFragment {
         }
 
         @Override
-        public View getView(int i, View contentView, ViewGroup viewGroup) {
+        public View getView(final int i, View contentView, ViewGroup viewGroup) {
             View view = View.inflate(mContext, R.layout.item_gridview, null);
             Button tv = (Button) view.findViewById(R.id.tv_item);
 
@@ -168,7 +170,13 @@ public class XuanKe_Fragment extends BaseFragment {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("types", kc_types + "");
+                    bundle.putString("tid", list.get(0).getT_list().get(i).getId() + "");
 
+
+                    bundle.putString("courseList", courseList);
+                    startActivity(XuanKeDetailActivity.class, bundle);
                 }
             });
             return tv;
@@ -307,7 +315,7 @@ public class XuanKe_Fragment extends BaseFragment {
             public void onResponse(String result) {
                 Log.e(TAG + "LastKC    ", result);
                 Gson gson = new Gson();
-
+                courseList=result;
                 KCTypes kcType = gson.fromJson(result, KCTypes.class);
 
                 lastKC.add(kcType);

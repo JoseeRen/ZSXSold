@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Mr_Shadow on 2017/6/9.
  */
 
-public class KCTypes {
+public class KCTypes  {
 
     /**
      * kc_types : 0
@@ -15,6 +15,10 @@ public class KCTypes {
 
     private String kc_types;
     private List<TListBean> t_list;
+
+
+
+
 
     public String getKc_types() {
         return kc_types;
@@ -31,6 +35,8 @@ public class KCTypes {
     public void setT_list(List<TListBean> t_list) {
         this.t_list = t_list;
     }
+
+
 
     public static class TListBean {
         /**

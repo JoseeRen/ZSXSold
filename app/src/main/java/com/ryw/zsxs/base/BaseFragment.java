@@ -10,6 +10,7 @@ package com.ryw.zsxs.base;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -46,5 +47,19 @@ public abstract class BaseFragment extends Fragment {
     public final  void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    /**
+     * Activity跳转
+     * @param
+     * @param targetActivity
+     * @param bundle
+     */
+    public void startActivity(Class<?> targetActivity,Bundle bundle){
+        Intent intent = new Intent(getActivity(), targetActivity);
+        if(null != bundle){
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
     }
 }

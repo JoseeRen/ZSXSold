@@ -20,7 +20,7 @@
     android:layout_height="50dp"
     android:background="#315031"
     >
-    <!--android:background="@color/main_footer_bg"-->
+    <!--android:background="@color/main_footer_bg"   公有的头部禁止修改  -->
 
 
 
