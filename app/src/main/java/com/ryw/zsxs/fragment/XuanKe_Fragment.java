@@ -31,7 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.mingle.widget.ShapeLoadingView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.XuanKeDetailActivity;
 import com.ryw.zsxs.app.Constant;
@@ -87,9 +86,8 @@ public class XuanKe_Fragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.loadView)
-    ShapeLoadingView loadView;
-    Unbinder unbinder1;
+
+
     //分类类型：0（视频），1（音频），2（读书），3（文章）  默认为0
     private int kc_types = 0;
     //考试 0    工作  1    生活2
@@ -171,7 +169,7 @@ public class XuanKe_Fragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("types", kc_types + "");
+                    bundle.putInt("types",kc_types);
                     bundle.putString("tid", list.get(0).getT_list().get(i).getId() + "");
 
 
@@ -192,7 +190,6 @@ public class XuanKe_Fragment extends BaseFragment {
 
     @Override
     public void init(Bundle savedInstanceState) {
-        gvCourslist.setEmptyView(loadView);
 
         rgXuankeTopmenu.check(R.id.rb_xuanke_exam);
         initData();
