@@ -23,7 +23,6 @@
         android:layout_toRightOf="@+id/ib_xuankedetail_back"
         android:text="视频中心"
         android:textColor="#fff"
-
         android:textSize="22sp" />
 
     <ImageButton

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 积分收支布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/usercenter_header_llbkg">
+
+    <ImageView
+        android:id="@+id/iv_usermessage_back"
+        style="@style/usercenter_header_ivback" />
+
+    <TextView
+        style="@style/usercenter_header_title"
+        android:text="积分收支记录" />
+</LinearLayout>
