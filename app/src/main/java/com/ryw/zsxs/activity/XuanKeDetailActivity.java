@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
@@ -173,8 +174,10 @@ public class XuanKeDetailActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_xuankedetail_back:
+                finish();
                 break;
             case R.id.ib_xuankedetail_search:
+                Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rb_xuankedetail_top_left:
                 break;
