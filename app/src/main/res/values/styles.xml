@@ -18,6 +18,32 @@
     <item name="android:paddingBottom">3dp</item>
     <item name="android:paddingTop">3dp</item>
 <item name="android:textColor">@drawable/rb_textcolor_selector</item>
-
 </style>
+
+    <!-- 个人中心通用布局 背景-->
+    <style name="usercenter_header_llbkg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">#315031</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!-- 个人中心通用布局头 textview -->
+    <style name="usercenter_header_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <!-- 个人中心通用布局头 返回箭头图片-->
+    <style name="usercenter_header_ivback">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@mipmap/back</item>
+
+    </style>
 </resources>

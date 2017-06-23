@@ -31,6 +31,13 @@
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.XuanKeDetailActivity"/>
         <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.UserLoginMessageActivity"/>
+        <activity android:name=".activity.UserJifenActivity"/>
+        <activity android:name=".activity.UserXuebiActivity"/>
+        <activity android:name=".activity.UserXueshiActivity"/>
+        <activity android:name=".activity.UserMessageActivity"/>
+        <activity android:name=".activity.UserShareActivity"/>
+        <activity android:name=".activity.UserAccountActivity"/>
     </application>
 
 </manifest>
