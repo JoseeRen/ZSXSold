@@ -8,9 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.LoginBean;
+import com.ryw.zsxs.fragment.MyClass_Fragment;
 import com.ryw.zsxs.utils.MD5utils;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
@@ -29,6 +32,8 @@ public class LoginAcitvity extends BaseActivity {
 
     private static final int IS_SUCCESS = 0;
     public static final int IS_ERROR = 1;
+    public static final String ACODE = "acode";
+    public static final String USERNAME = "username";
     @BindView(R.id.back)
     TextView back;
     @BindView(R.id.tv_login_register)
@@ -68,7 +73,7 @@ public class LoginAcitvity extends BaseActivity {
             Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            HashMap<String, String> map = new HashMap<>();
+            final HashMap<String, String> map = new HashMap<>();
             map.put("Action", "Login");
             map.put("user", username);
             map.put("pwd", MD5utils.encode(password));
@@ -76,8 +81,13 @@ public class LoginAcitvity extends BaseActivity {
             XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
                 @Override
                 public void onResponse(String result) {
+                    Gson gson =new Gson();
+                    LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+                    SpUtils.putString(mContext,ACODE,loginBean.acode);
+                    SpUtils.putString(mContext,USERNAME,loginBean.username);
                     Toast.makeText(LoginAcitvity.this, "登录成功", Toast.LENGTH_LONG).show();
                     SpUtils.putBoolean(LoginAcitvity.this, Constant.IS_LOGIN, true);
+
                     finish();
                 }
             });
@@ -106,4 +116,7 @@ public class LoginAcitvity extends BaseActivity {
                 break;
         }
     }
+
+
+
 }
