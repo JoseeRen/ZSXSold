@@ -2,6 +2,7 @@ package com.ryw.zsxs.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.ryw.zsxs.R;
@@ -28,6 +30,8 @@ import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.bean.KCTypes;
 import com.ryw.zsxs.utils.XutilsHttp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +73,10 @@ public class XuanKeDetailActivity extends BaseActivity {
     private int left_position = 0;
     //右边的 当前值
     private int right_position = 0;
+    private LvAdapter lvAdapter;
+    private int pageNow = 1;
+    private int pageCount = 1;
+    CourseListBean courseListBean = null;
 
     @Override
     public int getContentViewResId() {
@@ -122,33 +130,56 @@ public class XuanKeDetailActivity extends BaseActivity {
 
     //初始化列表
     private void initLisview() {
+        initText();
         pullXuankedetailListivew.setMode(PullToRefreshBase.Mode.BOTH);
-        pullXuankedetailListivew.setRefreshing();
+        // pullXuankedetailListivew.setRefreshing();
         pullXuankedetailListivew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pullXuankedetailListivew.onRefreshComplete();
+                    }
+                }, 1000);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                Log.e(TAG, "onPullUpToRefresh: ");
+                if (pageNow == pageCount) {
+                    Toast.makeText(mContext, "没有更多了", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pullXuankedetailListivew.onRefreshComplete();
+                        }
+                    }, 1000);
+                    return;
+                }
+                initData();
             }
         });
 
 
-        //    initLisviewData();
-
     }
 
-    //初始化列表 的数据
-    private void initLisviewData() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("Action", Constant.ACTION_GETCOURSELIST);
-        // types=0&tid=820
-        map.put("types", types + "");
-        // map.put("tid",)
-
+    private void initText() {
+        // 设置下拉刷新文本
+        ILoadingLayout startLabels = pullXuankedetailListivew
+                .getLoadingLayoutProxy(true, false);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        String str = format.format(new Date());
+        pullXuankedetailListivew.getLoadingLayoutProxy().setLastUpdatedLabel("最后更新时间:" + str);
+        startLabels.setPullLabel("下拉刷新...");// 刚下拉时，显示的提示
+        startLabels.setRefreshingLabel("正在加载中...");// 刷新时
+        startLabels.setReleaseLabel("松手可刷新...");// 下来达到一定距离时，显示的提示
+//     设置上拉刷新文本
+        ILoadingLayout endLabels = pullXuankedetailListivew.getLoadingLayoutProxy(
+                false, true);
+        endLabels.setPullLabel("加载更多...");// 刚下拉时，显示的提示
+        endLabels.setRefreshingLabel("正在加载中...");// 刷新时
+        endLabels.setReleaseLabel("松手可刷新");// 下来达到一定距离时，显示的提示
     }
 
     /**
@@ -163,10 +194,24 @@ public class XuanKeDetailActivity extends BaseActivity {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
-                CourseListBean courseListBean = gson.fromJson(result, CourseListBean.class);
                 Log.e(TAG + "initData", result);
                 //设置listview的数据源
-                pullXuankedetailListivew.setAdapter(new LvAdapter(courseListBean));
+
+                if (lvAdapter == null) {
+
+                    courseListBean = gson.fromJson(result, CourseListBean.class);
+                    pageCount = Integer.parseInt(courseListBean.getPage_all());
+                    lvAdapter = new LvAdapter(courseListBean);
+                    pullXuankedetailListivew.setAdapter(lvAdapter);
+
+                } else {
+                    pageNow++;
+                    courseListBean.getCourse().addAll(gson.fromJson(result, CourseListBean.class).getCourse());
+                    lvAdapter.notifyDataSetChanged();
+                    pullXuankedetailListivew.onRefreshComplete();
+
+                }
+
 
             }
         });
@@ -209,7 +254,7 @@ public class XuanKeDetailActivity extends BaseActivity {
             viewHolder.tvTitleItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getTitle());
             viewHolder.tvKeshiItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getKeshi() + "课时");
             viewHolder.tvJifenItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getMoney() + "积分");
-            viewHolder.tvDianjiliangItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getHot()+"");
+            viewHolder.tvDianjiliangItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getHot() + "");
 
 
             return convertView;
