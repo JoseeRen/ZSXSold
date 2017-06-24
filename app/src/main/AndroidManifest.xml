@@ -42,10 +42,6 @@
         <activity android:name=".activity.UserAccountActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.BackpasswordActivity" />
-        <activity
-            android:name=".activity.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
