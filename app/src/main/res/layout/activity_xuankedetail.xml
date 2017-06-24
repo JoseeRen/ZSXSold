@@ -55,7 +55,21 @@
         android:id="@+id/rv_xuankedetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_below="@id/rg_xuankedetail_top"
         android:background="#ECECEA"
         android:padding="8dp"></android.support.v7.widget.RecyclerView>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pull_xuankedetail_listivew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/rg_xuankedetail_top"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </RelativeLayout>
