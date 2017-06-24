@@ -9,9 +9,14 @@
 package com.ryw.zsxs.fragment;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 
+import com.google.gson.Gson;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseFragment;
+
+import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by yuzhenwei on 2017/6/9.
@@ -35,6 +40,7 @@ public class Home_Fragment extends BaseFragment {
     public void init(Bundle savedInstanceState) {
 
     }
+
 
     @Override
     public int getLayoutResId() {
