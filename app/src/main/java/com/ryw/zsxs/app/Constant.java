@@ -15,6 +15,8 @@ package com.ryw.zsxs.app;
 
 public class Constant {
     public static final String SAVE_AD_PATH = MyApplication.getInstance().getFilesDir().getPath() + "/app_hy1.jpg";
+    public static final String IS_LOGIN="is_Login";
+
     //config   应用的一些配置
 
 
