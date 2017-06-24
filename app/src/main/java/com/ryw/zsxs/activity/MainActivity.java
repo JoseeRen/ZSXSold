@@ -26,7 +26,6 @@ import com.ryw.zsxs.fragment.XuanKe_Fragment;
 import com.ryw.zsxs.utils.SpUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 任耀威
@@ -72,12 +71,7 @@ public class MainActivity extends BaseActivity {
         rg_group.setOnCheckedChangeListener(new RadioGroupCheckedChangeListener());
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 
     private class RadioGroupCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
         private boolean isLogin;
@@ -90,17 +84,17 @@ public class MainActivity extends BaseActivity {
             switch (checkedId) {
                 case R.id.foot_bar_home:
                     ft.replace(R.id.rl_main, Home_Fragment.getInstance());
-                    mCurrent=R.id.foot_bar_home;
+                    mCurrent=0;
                     break;
                 case R.id.foot_bar_xuanke:
                     ft.replace(R.id.rl_main, XuanKe_Fragment.getInstance());
-                    mCurrent=R.id.foot_bar_xuanke;
+                    mCurrent=0;
 
                     break;
                 case R.id.foot_bar_myclass:
                     isLogin = SpUtils.getBoolean(mContext, Constant.IS_LOGIN);
                     if (!isLogin){
-
+                        mCurrent=1;
                         startActivity(LoginAcitvity.class,null);
 
 
@@ -111,9 +105,11 @@ public class MainActivity extends BaseActivity {
 
                     break;
                 case R.id.foot_bar_user:
+                    isLogin = SpUtils.getBoolean(mContext, Constant.IS_LOGIN);
 
                     if (!isLogin){
                         startActivity(LoginAcitvity.class,null);
+                        mCurrent=1;
 
 
 
@@ -131,7 +127,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (mCurrent!=0)
         rb_footBarHome.setChecked(true);
+        mCurrent=0;
 
 
     }
