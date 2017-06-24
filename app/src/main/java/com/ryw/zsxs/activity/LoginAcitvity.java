@@ -13,7 +13,6 @@ import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.bean.LoginBean;
-import com.ryw.zsxs.fragment.MyClass_Fragment;
 import com.ryw.zsxs.utils.MD5utils;
 import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
@@ -21,6 +20,7 @@ import com.ryw.zsxs.utils.XutilsHttp;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -34,8 +34,7 @@ public class LoginAcitvity extends BaseActivity {
     public static final int IS_ERROR = 1;
     public static final String ACODE = "acode";
     public static final String USERNAME = "username";
-    @BindView(R.id.back)
-    TextView back;
+
     @BindView(R.id.tv_login_register)
     TextView tvLoginRegister;
     @BindView(R.id.et_login_name)
@@ -46,6 +45,8 @@ public class LoginAcitvity extends BaseActivity {
     Button btLoginDenglu;
     @BindView(R.id.tv_login_findPass)
     TextView tvLoginFindPass;
+    @BindView(R.id.back)
+    TextView back;
 
 
     private String username;
@@ -81,10 +82,10 @@ public class LoginAcitvity extends BaseActivity {
             XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
                 @Override
                 public void onResponse(String result) {
-                    Gson gson =new Gson();
+                    Gson gson = new Gson();
                     LoginBean loginBean = gson.fromJson(result, LoginBean.class);
-                    SpUtils.putString(mContext,ACODE,loginBean.acode);
-                    SpUtils.putString(mContext,USERNAME,loginBean.username);
+                    SpUtils.putString(mContext, ACODE, loginBean.acode);
+                    SpUtils.putString(mContext, USERNAME, loginBean.username);
                     Toast.makeText(LoginAcitvity.this, "登录成功", Toast.LENGTH_LONG).show();
                     SpUtils.putBoolean(LoginAcitvity.this, Constant.IS_LOGIN, true);
 
@@ -97,7 +98,7 @@ public class LoginAcitvity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_login_register, R.id.bt_login_denglu, R.id.tv_login_findPass})
+    @OnClick({R.id.tv_login_register, R.id.bt_login_denglu, R.id.tv_login_findPass, R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_login_denglu:
@@ -114,9 +115,21 @@ public class LoginAcitvity extends BaseActivity {
                 startActivity(BackpasswordActivity.class, null);
 
                 break;
+            case R.id.back:
+                //返回
+
+                finish();
+                break;
         }
     }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 
 
 }
