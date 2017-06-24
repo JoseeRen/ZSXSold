@@ -2,6 +2,7 @@ package com.ryw.zsxs.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +86,7 @@ public class LoginAcitvity extends BaseActivity {
                     Gson gson = new Gson();
                     LoginBean loginBean = gson.fromJson(result, LoginBean.class);
                     SpUtils.putString(mContext, ACODE, loginBean.acode);
+                    Log.e("zhaogui",loginBean.acode+"bbbbbbbbbbbbbb");
                     SpUtils.putString(mContext, USERNAME, loginBean.username);
                     Toast.makeText(LoginAcitvity.this, "登录成功", Toast.LENGTH_LONG).show();
                     SpUtils.putBoolean(LoginAcitvity.this, Constant.IS_LOGIN, true);

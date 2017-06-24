@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,14 @@ import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
 import com.ryw.zsxs.utils.SpUtils;
+import com.ryw.zsxs.utils.Xutils;
+import com.ryw.zsxs.utils.XutilsHttp;
 import com.ryw.zsxs.view.MyViewpager;
 
+import org.xutils.common.Callback;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,6 +107,20 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
 
     protected void initData() {
+        String acode = SpUtils.getString(mContext, "acode");
+        Log.e("zhaogui",acode+"aaaaaaaaaaaaaaaaaaaa");
+        String username = SpUtils.getString(mContext, "username");
+        Log.e("zhaogui",username+"aaaaaaaaaaaaaaaaaaaa");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Action","getUserInfo");
+        map.put("acode",acode);
+        map.put("Uid",username);
+       XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
+           @Override
+           public void onResponse(String result) {
+
+           }
+       });
         listtext = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             listtext.add(i + "");
