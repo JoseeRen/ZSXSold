@@ -1,6 +1,5 @@
 package com.ryw.zsxs.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.ryw.zsxs.utils.XutilsHttp;
 import java.util.HashMap;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -60,8 +58,6 @@ public class LoginAcitvity extends BaseActivity {
     }
 
 
-
-
     private void login() {
         username = etLoginName.getText().toString().trim();
         password = etLoginPass.getText().toString().trim();
@@ -91,13 +87,6 @@ public class LoginAcitvity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.tv_login_register, R.id.bt_login_denglu, R.id.tv_login_findPass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -106,14 +95,13 @@ public class LoginAcitvity extends BaseActivity {
                 break;
             case R.id.tv_login_register:
                 //注册
-                Intent intent = new Intent(LoginAcitvity.this, RegisterActivity.class);
-                startActivity(intent);
 
+                startActivity(RegisterActivity.class, null);
                 break;
             case R.id.tv_login_findPass:
                 //找回密码
-                Intent intent1 = new Intent(LoginAcitvity.this, BackpasswordActivity.class);
-                startActivity(intent1);
+
+                startActivity(BackpasswordActivity.class, null);
 
                 break;
         }

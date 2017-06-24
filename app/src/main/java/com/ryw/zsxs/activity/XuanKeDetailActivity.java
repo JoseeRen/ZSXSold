@@ -8,17 +8,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
+import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.bean.KCTypes;
 import com.ryw.zsxs.utils.XutilsHttp;
 
@@ -27,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -54,16 +61,21 @@ public class XuanKeDetailActivity extends BaseActivity {
     RadioGroup rgXuankedetailTop;
     @BindView(R.id.rv_xuankedetail)
     RecyclerView rvXuankedetail;
+    @BindView(R.id.pull_xuankedetail_listivew)
+    PullToRefreshListView pullXuankedetailListivew;
     private int types;
     private String tid;
     //左边的当前值
-    private  int left_position=0;
+    private int left_position = 0;
     //右边的 当前值
-    private int right_position=0;
+    private int right_position = 0;
+
     @Override
     public int getContentViewResId() {
         return R.layout.activity_xuankedetail;
     }
+
+    private String[] right_String = {"综合", "热门", "最新", "评分", "价格递减", "价格递增"};
 
     @Override
     public void init(Bundle savedInstanceState) {
@@ -93,6 +105,7 @@ public class XuanKeDetailActivity extends BaseActivity {
         KCTypes kcTypes = new Gson().fromJson(s, KCTypes.class);
         tid = bundle.getString("tid");
         Log.e(TAG + "xuankeDetail", kcTypes.getKc_types());
+        initLisview();
 
 
         //初始化弹出菜单
@@ -100,11 +113,42 @@ public class XuanKeDetailActivity extends BaseActivity {
         GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 4);
         //设备layoutManager
         rvXuankedetail.setLayoutManager(mLayoutManager);
-        //据说提高性
+        //据说提高性能
         rvXuankedetail.setHasFixedSize(true);
         rvXuankedetail.setAdapter(new RVAdapter(kcTypes.getT_list()));
 
         initData();
+    }
+
+    //初始化列表
+    private void initLisview() {
+        pullXuankedetailListivew.setMode(PullToRefreshBase.Mode.BOTH);
+        pullXuankedetailListivew.setRefreshing();
+        pullXuankedetailListivew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+            }
+        });
+
+
+        //    initLisviewData();
+
+    }
+
+    //初始化列表 的数据
+    private void initLisviewData() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Action", Constant.ACTION_GETCOURSELIST);
+        // types=0&tid=820
+        map.put("types", types + "");
+        // map.put("tid",)
+
     }
 
     /**
@@ -119,11 +163,74 @@ public class XuanKeDetailActivity extends BaseActivity {
             @Override
             public void onResponse(String result) {
                 Gson gson = new Gson();
-                KCTypes kcType = gson.fromJson(result, KCTypes.class);
+                CourseListBean courseListBean = gson.fromJson(result, CourseListBean.class);
                 Log.e(TAG + "initData", result);
+                //设置listview的数据源
+                pullXuankedetailListivew.setAdapter(new LvAdapter(courseListBean));
 
             }
         });
+    }
+
+    class LvAdapter extends BaseAdapter {
+
+        private final CourseListBean courseListBean;
+
+        public LvAdapter(CourseListBean courseListBean) {
+            this.courseListBean = courseListBean;
+        }
+
+        @Override
+        public int getCount() {
+            return courseListBean.getCourse().size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+            LvAdapter.ViewHolder viewHolder = null;
+            if (convertView == null) {
+                convertView = View.inflate(mContext, R.layout.item_xuankedetail_pvlistview, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            XutilsHttp.getInstance().bindCommonImage(viewHolder.ivItemXuankedetailPv, courseListBean.getCourse().get(i).getImg(), true);
+            viewHolder.tvTitleItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getTitle());
+            viewHolder.tvKeshiItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getKeshi() + "课时");
+            viewHolder.tvJifenItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getMoney() + "积分");
+            viewHolder.tvDianjiliangItemXuankedetailPv.setText(courseListBean.getCourse().get(i).getHot()+"");
+
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            @BindView(R.id.iv_item_xuankedetail_pv)
+            ImageView ivItemXuankedetailPv;
+            @BindView(R.id.tv_title_item_xuankedetail_pv)
+            TextView tvTitleItemXuankedetailPv;
+            @BindView(R.id.tv_keshi_item_xuankedetail_pv)
+            TextView tvKeshiItemXuankedetailPv;
+            @BindView(R.id.tv_jifen_item_xuankedetail_pv)
+            TextView tvJifenItemXuankedetailPv;
+            @BindView(R.id.tv_dianjiliang_item_xuankedetail_pv)
+            TextView tvDianjiliangItemXuankedetailPv;
+
+            ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
     }
 
     /**
@@ -141,7 +248,7 @@ public class XuanKeDetailActivity extends BaseActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-         Log.e("XuankeDetailActivity",viewType+">>>>");
+            Log.e("XuankeDetailActivity", viewType + ">>>>");
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
 
             ViewHolder vh = new ViewHolder(view);
