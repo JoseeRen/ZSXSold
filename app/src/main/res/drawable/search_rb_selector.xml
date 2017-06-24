@@ -31,7 +31,7 @@
                 <shape>
                     <padding android:bottom="0dp" android:left="-2dp" android:right="-2dp" android:top="-2dp" />
 
-                    <solid android:color="#00ff00ff" />
+                    <solid android:color="#eeeeee" />
                 </shape>
             </item>
             <!-- This is the main color -->

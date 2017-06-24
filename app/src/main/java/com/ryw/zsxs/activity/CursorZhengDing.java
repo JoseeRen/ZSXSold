@@ -10,7 +10,7 @@ import com.ryw.zsxs.base.BaseActivity;
  * Created by Zhao on 2017/6/24.
  */
 
-public class MyProblem extends BaseActivity {
+public class CursorZhengDing extends BaseActivity {
 
     @Override
     public int getContentViewResId() {

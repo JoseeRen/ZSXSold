@@ -31,6 +31,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.XuanKeDetailActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.UserLoginMessageActivity"/>
+        <activity android:name=".activity.UserJifenActivity"/>
+        <activity android:name=".activity.UserXuebiActivity"/>
+        <activity android:name=".activity.UserXueshiActivity"/>
+        <activity android:name=".activity.UserMessageActivity"/>
+        <activity android:name=".activity.UserShareActivity"/>
+        <activity android:name=".activity.UserAccountActivity"/>
+
+        <activity android:name=".activity.MyCollect"/>
+        <activity android:name=".activity.MyNotes"/>
+        <activity android:name=".activity.MyProblem"/>
+        <activity android:name=".activity.CursorZhengDing"/>
+        <activity android:name=".activity.MyJiFen"/>
+        <activity android:name=".activity.MyTest"/>
+        <activity android:name=".activity.ZuZhiAndSchool"/>
+        <activity android:name=".activity.Help"/>
+        <activity android:name=".activity.Setting"/>
+        <activity android:name=".activity.AboutZX" />
+
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.XuanKeDetailActivity" />
         <activity android:name=".activity.GuideActivity" />
