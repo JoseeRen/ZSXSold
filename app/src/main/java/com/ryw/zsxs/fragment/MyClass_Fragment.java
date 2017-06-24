@@ -18,7 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.LoginAcitvity;
+import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.view.MyViewpager;
 
 import java.util.ArrayList;
@@ -71,7 +74,22 @@ public class MyClass_Fragment extends BaseFragment implements RadioGroup.OnCheck
 
     @Override
     public void init(Bundle savedInstanceState) {
+        //检查是否登录
+        initLogin();
+
+
         initData();
+    }
+
+    /**
+     *
+     */
+    private void initLogin() {
+        boolean isLogin = SpUtils.getBoolean(mContext, Constant.IS_LOGIN);
+        if (!isLogin){
+            startActivity(LoginAcitvity.class,null);
+            return;
+        }
     }
 
     @Override

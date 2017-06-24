@@ -247,7 +247,9 @@ public class XutilsHttp {
      */
     public void bindCommonImage(ImageView iv, String url, boolean option) {
         if (option) {
-            options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.duanwang_icon).setFailureDrawableId(R.mipmap.duanwang_icon).build();
+            options = new ImageOptions.Builder().setLoadingDrawableId(R.mipmap.duanwang_icon).setFailureDrawableId(R.mipmap.duanwang_icon).setSize(300,200).setImageScaleType(ImageView.ScaleType.FIT_XY).build();
+
+
             x.image().bind(iv, url, options);
         } else {
             x.image().bind(iv, url);
