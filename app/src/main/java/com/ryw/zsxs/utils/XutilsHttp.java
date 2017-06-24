@@ -31,7 +31,7 @@ public class XutilsHttp {
     private Handler handler;
     private ImageOptions options;
 
-    private XutilsHttp() {
+    public XutilsHttp() {
         handler = new Handler(Looper.getMainLooper());
     }
 
