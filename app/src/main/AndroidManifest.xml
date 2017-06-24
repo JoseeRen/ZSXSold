@@ -42,6 +42,7 @@
         <activity android:name=".activity.UserAccountActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.BackpasswordActivity" />
+
     </application>
 
 </manifest>
