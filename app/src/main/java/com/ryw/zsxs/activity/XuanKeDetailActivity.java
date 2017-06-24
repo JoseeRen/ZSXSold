@@ -8,16 +8,17 @@ import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -90,6 +91,10 @@ public class XuanKeDetailActivity extends BaseActivity {
     private int pageCount = 1;
     CourseListBean courseListBean = null;
     private KCTypes kcTypes;
+    //排序  默认是0
+    private int orde = 0;
+    private String[] ords = {"", "hot", "time", "", "moneyDown", "moneyUP"};
+    private PopupWindow popupWindow;
 
     @Override
     public int getContentViewResId() {
@@ -123,12 +128,12 @@ public class XuanKeDetailActivity extends BaseActivity {
         }
         String s = bundle.getString("courseList");
         kcTypes = new Gson().fromJson(s, KCTypes.class);
+        rbXuankedetailTopLeft.setText(kcTypes.getT_list().get(bundle.getInt("position")).getName());
         tid = bundle.getString("tid");
-        Log.e(TAG + "xuankeDetail", kcTypes.getKc_types());
         initLisview();
 
 
-        initData();
+        initData(null);
     }
 
     /**
@@ -140,22 +145,80 @@ public class XuanKeDetailActivity extends BaseActivity {
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.popupwindow_layout, null);
 
-        RecyclerView rvXuankedetail = view.findViewById(R.id.rv_xuankedetail);
+        GridView rvXuankedetail = view.findViewById(R.id.rv_xuankedetail);
 
 
-        //设置卡片布局
-        GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 4);
-        //设备layoutManager
-        rvXuankedetail.setLayoutManager(mLayoutManager);
-        //据说提高性能
-        rvXuankedetail.setHasFixedSize(true);
-        rvXuankedetail.setAdapter(new RVAdapter(kcTypes.getT_list()));
-       showPopupwindow(view);
+        rvXuankedetail.setAdapter(new GridViewAdapter(kcTypes.getT_list()));
+        showPopupwindow(view);
+    }
+
+    class GridViewAdapter extends BaseAdapter {
+
+        private final List<KCTypes.TListBean> t_list;
+
+        public GridViewAdapter(List<KCTypes.TListBean> t_list) {
+            this.t_list = t_list;
+        }
+
+        @Override
+        public int getCount() {
+            return t_list.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            ViewHolder holder = null;
+            if (view == null) {
+                view = View.inflate(mContext, R.layout.item_recyclerview, null);
+                holder = new ViewHolder(view);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
+            }
+            holder.btnItem.setText(t_list.get(i).getName());
+            holder.btnItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   left_position=i;
+                 rbXuankedetailTopLeft.setText( t_list.get(i).getName());
+                    tid=t_list.get(i).getId()+"";
+                    lvAdapter = null;
+
+                    initData(null);
+                    right_position=0;
+                    //右侧更新
+                    rbXuankedetailTopRight.setText("综合");
+                    popupWindow.dismiss();
+                    popupWindow=null;
+
+                }
+            });
+            return view;
+        }
+
+        class ViewHolder {
+            @BindView(R.id.btn_item)
+            Button btnItem;
+
+            ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
     }
 
     private void showPopupwindow(View view) {
-        PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        popupWindow.setFocusable(true);
+        popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setFocusable(false);
         popupWindow.setOutsideTouchable(true);
 
 
@@ -179,23 +242,29 @@ public class XuanKeDetailActivity extends BaseActivity {
      * 显示右边对话框
      */
     private void showRightPopupwindow() {
-        String[] right_String = {"综合", "热门", "最新", "评分", "价格递减", "价格递增"};
+        final String[] right_String = {"综合", "热门", "最新", "评分", "价格递减", "价格递增"};
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.popupwindow_right_layout, null);
 
         ListView lv = view.findViewById(R.id.rv_xuankedetail);
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //适配器置 空
+                lvAdapter = null;
+                //获取新数据  根据排序
+                initData(ords[i]);
+                rbXuankedetailTopRight.setText(right_String[i]);
+                right_position = i;
+                //window消失
+                popupWindow.dismiss();
+                popupWindow = null;
+            }
+        });
         lv.setAdapter(new MyArrayAdapter(mContext, R.layout.item_normal_xuankedetail_listview, right_String));
         showPopupwindow(view);
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     class MyArrayAdapter extends ArrayAdapter {
 
@@ -254,7 +323,7 @@ public class XuanKeDetailActivity extends BaseActivity {
                     }, 1000);
                     return;
                 }
-                initData();
+                initData(null);
             }
         });
 
@@ -282,11 +351,12 @@ public class XuanKeDetailActivity extends BaseActivity {
     /**
      * 请求数据
      */
-    private void initData() {
+    private void initData(String orde) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("Action", Constant.ACTION_GETCOURSELIST);
         map.put("types", types + "");
         map.put("tid", tid);
+        map.put("order", orde);
         XutilsHttp.getInstance().get(Constant.HOSTNAME, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
@@ -375,49 +445,6 @@ public class XuanKeDetailActivity extends BaseActivity {
         }
     }
 
-    /**
-     * recylerview的适配器
-     *
-     * @param
-     */
-    class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
-
-        private final List<KCTypes.TListBean> t_list;
-
-        public RVAdapter(List<KCTypes.TListBean> t_list) {
-            this.t_list = t_list;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e("XuankeDetailActivity", viewType + ">>>>");
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
-
-            ViewHolder vh = new ViewHolder(view);
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-
-            holder.mButton.setText(t_list.get(position).getName());
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return t_list.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            public Button mButton;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                mButton = itemView.findViewById(R.id.btn_item);
-            }
-        }
-    }
 
     @OnClick({R.id.ib_xuankedetail_back, R.id.ib_xuankedetail_search, R.id.rb_xuankedetail_top_left, R.id.rb_xuankedetail_top_right, R.id.rg_xuankedetail_top})
     public void onViewClicked(View view) {
@@ -429,10 +456,13 @@ public class XuanKeDetailActivity extends BaseActivity {
                 Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rb_xuankedetail_top_left:
+                iv1.setImageResource(R.drawable.buttom_smart_top);
                 showLeftPopupwindow(kcTypes);
 
                 break;
             case R.id.rb_xuankedetail_top_right:
+                iv2.setImageResource(R.drawable.buttom_smart_top);
+
                 showRightPopupwindow();
                 break;
             case R.id.rg_xuankedetail_top:
@@ -440,5 +470,12 @@ public class XuanKeDetailActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (popupWindow!=null&&popupWindow.isShowing()){
+            popupWindow.dismiss();
+            popupWindow=null;
+        }
+        return super.onTouchEvent(event);
+    }
 }
