@@ -1,19 +1,28 @@
 package com.ryw.zsxs.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -63,27 +72,30 @@ public class XuanKeDetailActivity extends BaseActivity {
     RadioButton rbXuankedetailTopRight;
     @BindView(R.id.rg_xuankedetail_top)
     RadioGroup rgXuankedetailTop;
-    @BindView(R.id.rv_xuankedetail)
-    RecyclerView rvXuankedetail;
+
     @BindView(R.id.pull_xuankedetail_listivew)
     PullToRefreshListView pullXuankedetailListivew;
+    @BindView(R.id.iv1)
+    ImageView iv1;
+    @BindView(R.id.iv2)
+    ImageView iv2;
     private int types;
     private String tid;
     //左边的当前值
     private int left_position = 0;
-    //右边的 当前值
+    //右边的 当前值默认右侧对话框的初始值
     private int right_position = 0;
     private LvAdapter lvAdapter;
     private int pageNow = 1;
     private int pageCount = 1;
     CourseListBean courseListBean = null;
+    private KCTypes kcTypes;
 
     @Override
     public int getContentViewResId() {
         return R.layout.activity_xuankedetail;
     }
 
-    private String[] right_String = {"综合", "热门", "最新", "评分", "价格递减", "价格递增"};
 
     @Override
     public void init(Bundle savedInstanceState) {
@@ -110,13 +122,27 @@ public class XuanKeDetailActivity extends BaseActivity {
                 break;
         }
         String s = bundle.getString("courseList");
-        KCTypes kcTypes = new Gson().fromJson(s, KCTypes.class);
+        kcTypes = new Gson().fromJson(s, KCTypes.class);
         tid = bundle.getString("tid");
         Log.e(TAG + "xuankeDetail", kcTypes.getKc_types());
         initLisview();
 
 
-        //初始化弹出菜单
+        initData();
+    }
+
+    /**
+     * 初始化左边弹出对话框
+     *
+     * @param kcTypes
+     */
+    private void showLeftPopupwindow(KCTypes kcTypes) {
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.popupwindow_layout, null);
+
+        RecyclerView rvXuankedetail = view.findViewById(R.id.rv_xuankedetail);
+
+
         //设置卡片布局
         GridLayoutManager mLayoutManager = new GridLayoutManager(mContext, 4);
         //设备layoutManager
@@ -124,9 +150,80 @@ public class XuanKeDetailActivity extends BaseActivity {
         //据说提高性能
         rvXuankedetail.setHasFixedSize(true);
         rvXuankedetail.setAdapter(new RVAdapter(kcTypes.getT_list()));
-
-        initData();
+       showPopupwindow(view);
     }
+
+    private void showPopupwindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+
+
+        // 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
+        popupWindow.showAsDropDown(rgXuankedetailTop, 0, 0);
+        //实现ppopuwindow的消失监听
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                iv1.setImageResource(R.drawable.buttom_smart);
+                iv2.setImageResource(R.drawable.buttom_smart);
+            }
+        });
+
+    }
+
+    /**
+     * 显示右边对话框
+     */
+    private void showRightPopupwindow() {
+        String[] right_String = {"综合", "热门", "最新", "评分", "价格递减", "价格递增"};
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.popupwindow_right_layout, null);
+
+        ListView lv = view.findViewById(R.id.rv_xuankedetail);
+
+        lv.setAdapter(new MyArrayAdapter(mContext, R.layout.item_normal_xuankedetail_listview, right_String));
+        showPopupwindow(view);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    class MyArrayAdapter extends ArrayAdapter {
+
+        private final String[] datas;
+
+        public MyArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull Object[] objects) {
+            super(context, resource, objects);
+            this.datas = (String[]) objects;
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (position == right_position) {
+                convertView = View.inflate(mContext, R.layout.item_selected_xuankedetail_listview, null);
+
+            } else {
+                convertView = View.inflate(mContext, R.layout.item_normal_xuankedetail_listview, null);
+
+            }
+            TextView tv = convertView.findViewById(R.id.tv_item_xuankedetail_lv);
+            tv.setText(datas[position]);
+
+            return tv;
+        }
+    }
+
 
     //初始化列表
     private void initLisview() {
@@ -242,7 +339,7 @@ public class XuanKeDetailActivity extends BaseActivity {
 
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
-            LvAdapter.ViewHolder viewHolder = null;
+            ViewHolder viewHolder = null;
             if (convertView == null) {
                 convertView = View.inflate(mContext, R.layout.item_xuankedetail_pvlistview, null);
                 viewHolder = new ViewHolder(convertView);
@@ -332,11 +429,16 @@ public class XuanKeDetailActivity extends BaseActivity {
                 Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rb_xuankedetail_top_left:
+                showLeftPopupwindow(kcTypes);
+
                 break;
             case R.id.rb_xuankedetail_top_right:
+                showRightPopupwindow();
                 break;
             case R.id.rg_xuankedetail_top:
                 break;
         }
     }
+
+
 }
