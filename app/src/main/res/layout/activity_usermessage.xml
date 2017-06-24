@@ -10,4 +10,5 @@
     <TextView
         style="@style/usercenter_header_title"
         android:text="消息中心" />
+
 </LinearLayout>

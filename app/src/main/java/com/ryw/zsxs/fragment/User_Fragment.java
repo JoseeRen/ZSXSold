@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.MyCollect;
+import com.ryw.zsxs.activity.MyProblem;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
 import com.ryw.zsxs.activity.UserLoginMessageActivity;
@@ -169,6 +172,7 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         llUserAccount.setOnClickListener(this);
         btnUserBack.setOnClickListener(this);
         rlBackground.setOnClickListener(this);
+        lvUser.setOnItemClickListener(new LvitemOnItemClickListener());
     }
 
     @Override
@@ -248,4 +252,23 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         listView.setLayoutParams(params);
     }
 
+    private class LvitemOnItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            switch (position){
+                case 1:
+                    Intent intent1 = new Intent(getContext(), MyCollect.class);
+                    startActivity(intent1);
+                    break;
+                case 2:
+                    Intent intent2 = new Intent(getContext(), MyProblem.class);
+                    startActivity(intent2);
+                    break;
+                case 3:
+                    Intent intent3 = new Intent(getContext(), MyProblem.class);
+                    startActivity(intent3);
+                    break;
+            }
+        }
+    }
 }
