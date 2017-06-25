@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout style="@style/usercenter_header_llbkg">
 
         <ImageView style="@style/usercenter_header_ivback"
@@ -11,11 +9,11 @@
 
         <TextView
             style="@style/usercenter_header_title"
-            android:text="我的收藏" />
+            android:text="我的答疑" />
     </LinearLayout>
 
     <RadioGroup
-        android:id="@+id/rg_mycollect"
+        android:id="@+id/rg_myproblem"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -26,7 +24,7 @@
             android:checked="true"
             android:gravity="center"
             android:text="视频"
-            android:id="@+id/rb_shipin"
+            android:id="@+id/myproblem_rb_shipin"
             android:padding="5dp"
             android:textColor="@drawable/text_color"
             android:button="@android:color/transparent"
@@ -36,7 +34,7 @@
             android:drawableBottom="@drawable/search_rb_selector"/>
         <RadioButton
             android:gravity="center"
-            android:id="@+id/rb_yinpin"
+            android:id="@+id/myproblem_rb_yinpin"
             android:padding="5dp"
             android:button="@android:color/transparent"
             android:text="音频"
@@ -47,7 +45,7 @@
         <RadioButton
             android:gravity="center"
             android:text="读书"
-            android:id="@+id/rb_dushu"
+            android:id="@+id/myproblem_rb_dushu"
             android:padding="5dp"
             android:button="@android:color/transparent"
             android:textColor="@drawable/text_color"
@@ -57,7 +55,7 @@
         <RadioButton
             android:gravity="center"
             android:text="文章"
-            android:id="@+id/rb_wenzhang"
+            android:id="@+id/myproblem_rb_wenzhang"
             android:padding="5dp"
             android:button="@android:color/transparent"
             android:textColor="@drawable/text_color"
@@ -67,7 +65,7 @@
     </RadioGroup>
 
     <com.ryw.zsxs.view.MyViewpager
-        android:id="@+id/mycollect_vp"
+        android:id="@+id/myproblem_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

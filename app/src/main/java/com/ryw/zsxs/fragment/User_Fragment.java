@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
+import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
@@ -260,15 +261,15 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
             switch (position){
                 case 1:
-                    Intent intent1 = new Intent(getContext(), MyCollect.class);
+                    Intent intent1 = new Intent(mContext, MyCollect.class);
                     startActivity(intent1);
                     break;
                 case 2:
-                    Intent intent2 = new Intent(getContext(), MyProblem.class);
+                    Intent intent2 = new Intent(mContext, MyProblem.class);
                     startActivity(intent2);
                     break;
                 case 3:
-                    Intent intent3 = new Intent(getContext(), MyProblem.class);
+                    Intent intent3 = new Intent(mContext, MyNotes.class);
                     startActivity(intent3);
                     break;
             }

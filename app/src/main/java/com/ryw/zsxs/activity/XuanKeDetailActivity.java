@@ -38,6 +38,7 @@ import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.bean.CourseListBean;
 import com.ryw.zsxs.bean.KCTypes;
+import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 
 import java.text.SimpleDateFormat;
@@ -91,8 +92,7 @@ public class XuanKeDetailActivity extends BaseActivity {
     private int pageCount = 1;
     CourseListBean courseListBean = null;
     private KCTypes kcTypes;
-    //排序  默认是0
-    private int orde = 0;
+
     private String[] ords = {"", "hot", "time", "", "moneyDown", "moneyUP"};
     private PopupWindow popupWindow;
 
@@ -189,17 +189,17 @@ public class XuanKeDetailActivity extends BaseActivity {
             holder.btnItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   left_position=i;
-                 rbXuankedetailTopLeft.setText( t_list.get(i).getName());
-                    tid=t_list.get(i).getId()+"";
+                    left_position = i;
+                    rbXuankedetailTopLeft.setText(t_list.get(i).getName());
+                    tid = t_list.get(i).getId() + "";
                     lvAdapter = null;
 
                     initData(null);
-                    right_position=0;
+                    right_position = 0;
                     //右侧更新
                     rbXuankedetailTopRight.setText("综合");
                     popupWindow.dismiss();
-                    popupWindow=null;
+                    popupWindow = null;
 
                 }
             });
@@ -231,8 +231,10 @@ public class XuanKeDetailActivity extends BaseActivity {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                iv1.setImageResource(R.drawable.buttom_smart);
-                iv2.setImageResource(R.drawable.buttom_smart);
+                if (iv1 != null && iv2 != null) {
+                    iv1.setImageResource(R.drawable.buttom_smart);
+                    iv2.setImageResource(R.drawable.buttom_smart);
+                }
             }
         });
 
@@ -299,6 +301,40 @@ public class XuanKeDetailActivity extends BaseActivity {
         initText();
         pullXuankedetailListivew.setMode(PullToRefreshBase.Mode.BOTH);
         // pullXuankedetailListivew.setRefreshing();
+        //条目 单击事件
+        pullXuankedetailListivew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //历史记录存储
+                String string = SpUtils.getString(mContext, Constant.HISTORYRECORD);
+                if (!string.contains(courseListBean.getCourse().get(i).getKc_id())) {
+                    SpUtils.putString(mContext, Constant.HISTORYRECORD, string + courseListBean.getCourse().get(i).getKc_id() + ",");
+                }
+                //准备跳转页面   需要kc_id  Kc_types
+                Bundle bundle = new Bundle();
+               bundle.putSerializable("data", courseListBean.getCourse().get(i));
+
+                switch (types) {
+                    case 0:
+                        // tvXuankedetailTitle.setText("视频中心");
+                        startActivity(VideoPlayActivity.class, bundle);
+                        break;
+
+                    case 1:
+                        //  tvXuankedetailTitle.setText("音频中心");
+                        startActivity(AudioCenterDetailActivity.class, bundle);
+                        break;
+                    case 2:
+                        //  tvXuankedetailTitle.setText("读书中心");
+                        startActivity(BookDetailActivity.class, bundle);
+                        break;
+                    case 3:
+                        //  tvXuankedetailTitle.setText("文章中心");
+                        startActivity(ArticleDetailActivity.class, bundle);
+                        break;
+                }
+            }
+        });
         pullXuankedetailListivew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -456,12 +492,23 @@ public class XuanKeDetailActivity extends BaseActivity {
                 Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rb_xuankedetail_top_left:
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
                 iv1.setImageResource(R.drawable.buttom_smart_top);
+                Log.e(TAG, "onViewClicked: " + "rb_xuankedetail_top_left");
                 showLeftPopupwindow(kcTypes);
 
                 break;
             case R.id.rb_xuankedetail_top_right:
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
+
                 iv2.setImageResource(R.drawable.buttom_smart_top);
+                Log.e(TAG, "onViewClicked: " + "rb_xuankedetail_top_right");
 
                 showRightPopupwindow();
                 break;
@@ -472,10 +519,20 @@ public class XuanKeDetailActivity extends BaseActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (popupWindow!=null&&popupWindow.isShowing()){
+        if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
-            popupWindow=null;
+            popupWindow = null;
+            return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+            popupWindow = null;
+        }
     }
 }

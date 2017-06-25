@@ -16,6 +16,10 @@ package com.ryw.zsxs.app;
 public class Constant {
     public static final String SAVE_AD_PATH = MyApplication.getInstance().getFilesDir().getPath() + "/app_hy1.jpg";
     public static final String IS_LOGIN="is_Login";
+    //已购课程
+    public static final String BUYEDCLASS = "BUYEDCLASS";
+    //历史记录
+    public static  final  String HISTORYRECORD="HISTORYRECORD";
 
     //config   应用的一些配置
 
@@ -34,4 +38,6 @@ public class Constant {
     private Constant() {
 
     }
+
+
 }
