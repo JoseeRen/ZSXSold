@@ -169,9 +169,9 @@ public class XuanKe_Fragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("types",kc_types);
+                    bundle.putInt("types", kc_types);
                     bundle.putString("tid", list.get(0).getT_list().get(i).getId() + "");
-
+                    bundle.putInt("position", i);
 
                     bundle.putString("courseList", courseList);
                     startActivity(XuanKeDetailActivity.class, bundle);
@@ -312,7 +312,7 @@ public class XuanKe_Fragment extends BaseFragment {
             public void onResponse(String result) {
                 Log.e(TAG + "LastKC    ", result);
                 Gson gson = new Gson();
-                courseList=result;
+                courseList = result;
                 KCTypes kcType = gson.fromJson(result, KCTypes.class);
 
                 lastKC.add(kcType);
