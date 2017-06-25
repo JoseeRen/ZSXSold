@@ -18,7 +18,7 @@ public class MyCollectBean {
     public String page_now;
     public List<CourseBean> Course;
 
-    public static class CourseBean {
+    public  class CourseBean {
         /**
          * kc_id : 140725
          * title : 2017骞村娓歌€冭瘯銆愬ぇ绾插垎鏋愩€戣搴�

@@ -23,15 +23,14 @@ public class SpUtils {
     private static SharedPreferences sp;
     public static  void putString(Context context, String key, String value){
           if(sp==null){
-              sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
     }
-         sp.edit().putString(key,value);
+         sp.edit().putString(key,value).commit();
     }
     public static String getString(Context context,String key){
         if(sp==null){
             sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
         }
-        String s = sp.getString(key, null);
+        String s = sp.getString(key, "");
         return s;
     }
     public static void putInt(Context context,String key,int value){
