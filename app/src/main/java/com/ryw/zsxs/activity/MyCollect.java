@@ -99,9 +99,9 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
         HashMap<String, String> hashmap = new HashMap<>();
         hashmap.put("Action", "getFavorite");
          hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
-//        hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
-        hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
-        hashmap.put("Uid", "18733513882");
+        hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
+        //hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
+        //hashmap.put("Uid", "18733513882");
         hashmap.put("types", i + "");
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
