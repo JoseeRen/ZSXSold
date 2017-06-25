@@ -1,13 +1,15 @@
 package com.ryw.zsxs.bean;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Mr_Shadow on 2017/6/21.
- *
- *
+ * <p>
+ * <p>
  * 课程列表bean
- *
+ * <p>
  * http://api.chinaplat.com/getval_2017?Action=GetCourseList&types=0&tid=820
  */
 
@@ -47,7 +49,7 @@ public class CourseListBean {
         this.Course = Course;
     }
 
-    public static class CourseBean {
+    public class CourseBean implements Serializable {
         /**
          * kc_id : 140703
          * title : 人力资源管理师二级（基础+专业知识）
@@ -58,15 +60,22 @@ public class CourseListBean {
          * hot : 192
          * teacher : ZS_34147
          */
-
         private String kc_id;
         private String title;
+
         private String img;
+
         private String info;
+
         private String money;
+
+
         private int keshi;
+
         private int hot;
+
         private String teacher;
+
 
         public String getKc_id() {
             return kc_id;

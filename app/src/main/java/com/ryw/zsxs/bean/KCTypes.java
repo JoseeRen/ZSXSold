@@ -5,7 +5,6 @@ import java.util.List;
 /**
  * Created by Mr_Shadow on 2017/6/9.
  */
-
 public class KCTypes  {
 
     /**
@@ -38,7 +37,7 @@ public class KCTypes  {
 
 
 
-    public static class TListBean {
+    public  class TListBean {
         /**
          * id : 4
          * name : 考试

@@ -35,5 +35,13 @@ public class MyApplication extends Application {
         super.onCreate();
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
+        setupDatabase();
+    }
+
+    /**
+     * 配置数据库
+     */
+    private void setupDatabase() {
+
     }
 }

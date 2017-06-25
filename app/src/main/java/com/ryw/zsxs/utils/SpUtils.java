@@ -31,7 +31,7 @@ public class SpUtils {
         if(sp==null){
             sp=context.getSharedPreferences(NAMESPACE,Context.MODE_PRIVATE);
         }
-        String s = sp.getString(key, null);
+        String s = sp.getString(key, "");
         return s;
     }
     public static void putInt(Context context,String key,int value){
