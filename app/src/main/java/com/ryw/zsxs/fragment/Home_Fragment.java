@@ -34,7 +34,7 @@ public class Home_Fragment extends BaseFragment {
     Unbinder unbinder;
 
     public static Home_Fragment getInstance() {
-        if (instance == null) {
+        if (instance ==  null) {
             instance = new Home_Fragment();
         }
         return instance;
