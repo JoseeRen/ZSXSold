@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Create on 2017-6-8 下午2:12
+  ~ FileName: AndroidManifest.xml
+  ~ Author: Ren Yaowei
+  ~ Blog: http://www.renyaowei.top
+  ~ Email renyaowei@foxmail.com
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ryw.zsxs">
 
@@ -25,6 +31,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.XuanKeDetailActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.UserLoginMessageActivity"/>
+        <activity android:name=".activity.UserJifenActivity"/>
+        <activity android:name=".activity.UserXuebiActivity"/>
+        <activity android:name=".activity.UserXueshiActivity"/>
+        <activity android:name=".activity.UserMessageActivity"/>
+        <activity android:name=".activity.UserShareActivity"/>
+        <activity android:name=".activity.UserAccountActivity"/>
+
+        <activity android:name=".activity.MyCollect"/>
+        <activity android:name=".activity.MyNotes"/>
+        <activity android:name=".activity.MyProblem"/>
+        <activity android:name=".activity.CursorZhengDing"/>
+        <activity android:name=".activity.MyJiFen"/>
+        <activity android:name=".activity.MyTest"/>
+        <activity android:name=".activity.ZuZhiAndSchool"/>
+        <activity android:name=".activity.Help"/>
+        <activity android:name=".activity.Setting"/>
+        <activity android:name=".activity.AboutZX" />
+
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.XuanKeDetailActivity" />
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.UserLoginMessageActivity" />
+        <activity android:name=".activity.UserJifenActivity" />
+        <activity android:name=".activity.UserXuebiActivity" />
+        <activity android:name=".activity.UserXueshiActivity" />
+        <activity android:name=".activity.UserMessageActivity" />
+        <activity android:name=".activity.UserShareActivity" />
+        <activity android:name=".activity.UserAccountActivity" />
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.XuanKeDetailActivity"/>
         <activity android:name=".activity.GuideActivity"/>

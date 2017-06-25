@@ -32,7 +32,6 @@
             android:id="@+id/foot_bar_home"
             android:text="首页"
 
-
             android:checked="true"
             android:drawableTop="@drawable/rb_foot_bar_home_bg"
 

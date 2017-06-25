@@ -23,8 +23,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.AboutZX;
+import com.ryw.zsxs.activity.CursorZhengDing;
+import com.ryw.zsxs.activity.Help;
 import com.ryw.zsxs.activity.MyCollect;
+import com.ryw.zsxs.activity.MyJiFen;
+import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
+import com.ryw.zsxs.activity.MyTest;
+import com.ryw.zsxs.activity.Setting;
 import com.ryw.zsxs.activity.UserAccountActivity;
 import com.ryw.zsxs.activity.UserJifenActivity;
 import com.ryw.zsxs.activity.UserLoginMessageActivity;
@@ -32,6 +39,7 @@ import com.ryw.zsxs.activity.UserMessageActivity;
 import com.ryw.zsxs.activity.UserShareActivity;
 import com.ryw.zsxs.activity.UserXuebiActivity;
 import com.ryw.zsxs.activity.UserXueshiActivity;
+import com.ryw.zsxs.activity.ZuZhiAndSchool;
 import com.ryw.zsxs.base.BaseFragment;
 
 import butterknife.BindView;
@@ -257,17 +265,47 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
             switch (position){
                 case 1:
-                    Intent intent1 = new Intent(getContext(), MyCollect.class);
+                    Intent intent1 = new Intent(mContext, MyCollect.class);
                     startActivity(intent1);
                     break;
                 case 2:
-                    Intent intent2 = new Intent(getContext(), MyProblem.class);
+                    Intent intent2 = new Intent(mContext, MyProblem.class);
                     startActivity(intent2);
                     break;
                 case 3:
-                    Intent intent3 = new Intent(getContext(), MyProblem.class);
+                    Intent intent3 = new Intent(mContext, MyNotes.class);
                     startActivity(intent3);
                     break;
+                case 4:
+                    Intent intent4 = new Intent(mContext, CursorZhengDing.class);
+                    startActivity(intent4);
+                    break;
+                case 6:
+                    Intent intent6 = new Intent(mContext, MyJiFen.class);
+                    startActivity(intent6);
+                    break;
+                case 7:
+                    Intent intent7 = new Intent(mContext, MyTest.class);
+                    startActivity(intent7);
+                    break;
+                case 8:
+                    Intent intent8 = new Intent(mContext, ZuZhiAndSchool.class);
+                    startActivity(intent8);
+                    break;
+                case 10:
+                    Intent intent10 = new Intent(mContext, Help.class);
+                    startActivity(intent10);
+                    break;
+                case 11:
+                    Intent intent11 = new Intent(mContext, Setting.class);
+                    startActivity(intent11);
+                    break;
+                case 12:
+                    Intent intent12 = new Intent(mContext, AboutZX.class);
+                    startActivity(intent12);
+                    break;
+
+
             }
         }
     }
