@@ -12,6 +12,6 @@
     <color name="TextColorFocus">#338534</color>
     <color name="colorPrimary">#338534</color>
     <color name="homefragmentline">#f4e8e8e8</color>
-
-
+    <color name="videoplaybg">#771d201b</color>
+    <color name="videoplayprogress">#F92FA02A</color>
 </resources>

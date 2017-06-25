@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -32,7 +31,6 @@ import com.ryw.zsxs.utils.XutilsHttp;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -255,4 +253,12 @@ public class Home_Fragment extends BaseFragment {
         return R.layout.fragment_home;
     }
 
+    /**
+     * 这代码留着  等界面看不见的时候停止发消息 让轮播图停下来
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

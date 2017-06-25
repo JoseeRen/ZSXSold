@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -134,6 +134,12 @@ public class XuanKeDetailActivity extends BaseActivity {
 
 
         initData(null);
+        rgXuankedetailTop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+
+            }
+        });
     }
 
     /**
@@ -300,6 +306,8 @@ public class XuanKeDetailActivity extends BaseActivity {
     private void initLisview() {
         initText();
         pullXuankedetailListivew.setMode(PullToRefreshBase.Mode.BOTH);
+
+        pullXuankedetailListivew.setEmptyView(View.inflate(mContext, R.layout.listview_emptyview, null));
         // pullXuankedetailListivew.setRefreshing();
         //条目 单击事件
         pullXuankedetailListivew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -312,7 +320,7 @@ public class XuanKeDetailActivity extends BaseActivity {
                 }
                 //准备跳转页面   需要kc_id  Kc_types
                 Bundle bundle = new Bundle();
-               bundle.putSerializable("data", courseListBean.getCourse().get(i));
+                bundle.putSerializable("data", courseListBean.getCourse().get(i));
 
                 switch (types) {
                     case 0:
@@ -366,23 +374,6 @@ public class XuanKeDetailActivity extends BaseActivity {
 
     }
 
-    private void initText() {
-        // 设置下拉刷新文本
-        ILoadingLayout startLabels = pullXuankedetailListivew
-                .getLoadingLayoutProxy(true, false);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
-        String str = format.format(new Date());
-        pullXuankedetailListivew.getLoadingLayoutProxy().setLastUpdatedLabel("最后更新时间:" + str);
-        startLabels.setPullLabel("下拉刷新...");// 刚下拉时，显示的提示
-        startLabels.setRefreshingLabel("正在加载中...");// 刷新时
-        startLabels.setReleaseLabel("松手可刷新...");// 下来达到一定距离时，显示的提示
-//     设置上拉刷新文本
-        ILoadingLayout endLabels = pullXuankedetailListivew.getLoadingLayoutProxy(
-                false, true);
-        endLabels.setPullLabel("加载更多...");// 刚下拉时，显示的提示
-        endLabels.setRefreshingLabel("正在加载中...");// 刷新时
-        endLabels.setReleaseLabel("松手可刷新");// 下来达到一定距离时，显示的提示
-    }
 
     /**
      * 请求数据
@@ -482,19 +473,22 @@ public class XuanKeDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ib_xuankedetail_back, R.id.ib_xuankedetail_search, R.id.rb_xuankedetail_top_left, R.id.rb_xuankedetail_top_right, R.id.rg_xuankedetail_top})
+    @OnClick({R.id.ib_xuankedetail_back, R.id.ib_xuankedetail_search, R.id.rb_xuankedetail_top_left, R.id.rb_xuankedetail_top_right, R.id.rg_xuankedetail_top, R.id.iv1, R.id.iv2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_xuankedetail_back:
                 finish();
                 break;
             case R.id.ib_xuankedetail_search:
-                Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
+                startActivity(SearchActivity.class, null);
+                finish();
                 break;
             case R.id.rb_xuankedetail_top_left:
+            case R.id.iv1:
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                     popupWindow = null;
+                    break;
                 }
                 iv1.setImageResource(R.drawable.buttom_smart_top);
                 Log.e(TAG, "onViewClicked: " + "rb_xuankedetail_top_left");
@@ -502,9 +496,12 @@ public class XuanKeDetailActivity extends BaseActivity {
 
                 break;
             case R.id.rb_xuankedetail_top_right:
+            case R.id.iv2:
+
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                     popupWindow = null;
+                    break;
                 }
 
                 iv2.setImageResource(R.drawable.buttom_smart_top);
@@ -517,14 +514,16 @@ public class XuanKeDetailActivity extends BaseActivity {
         }
     }
 
+
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public void onBackPressed() {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
             popupWindow = null;
-            return true;
+            return;
         }
-        return super.onTouchEvent(event);
+
+        super.onBackPressed();
     }
 
     @Override
@@ -534,5 +533,24 @@ public class XuanKeDetailActivity extends BaseActivity {
             popupWindow.dismiss();
             popupWindow = null;
         }
+    }
+
+
+    private void initText() {
+        // 设置下拉刷新文本
+        ILoadingLayout startLabels = pullXuankedetailListivew
+                .getLoadingLayoutProxy(true, false);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+        String str = format.format(new Date());
+        pullXuankedetailListivew.getLoadingLayoutProxy().setLastUpdatedLabel("最后更新时间:" + str);
+        startLabels.setPullLabel("下拉刷新...");// 刚下拉时，显示的提示
+        startLabels.setRefreshingLabel("正在加载中...");// 刷新时
+        startLabels.setReleaseLabel("松手可刷新...");// 下来达到一定距离时，显示的提示
+//     设置上拉刷新文本
+        ILoadingLayout endLabels = pullXuankedetailListivew.getLoadingLayoutProxy(
+                false, true);
+        endLabels.setPullLabel("加载更多...");// 刚下拉时，显示的提示
+        endLabels.setRefreshingLabel("正在加载中...");// 刷新时
+        endLabels.setReleaseLabel("松手可刷新");// 下来达到一定距离时，显示的提示
     }
 }

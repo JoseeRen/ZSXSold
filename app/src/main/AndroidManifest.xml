@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -72,6 +74,23 @@
 
         <!--2017跳转页面-->
         <activity android:name=".activity.ksdrActivity" />
+        <!--搜索页面-->
+        <activity android:name=".activity.SearchActivity" />
+        <!--视频播放-->
+        <activity android:name=".activity.VideoPlayActivity" />
+        <!--音频中心页面-->
+        <activity android:name=".activity.AudioCenterDetailActivity" />
+        <!--文章详情页面-->
+        <activity android:name=".activity.ArticleDetailActivity" />
+        <!--读书详情-->
+        <activity android:name=".activity.BookDetailActivity" />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

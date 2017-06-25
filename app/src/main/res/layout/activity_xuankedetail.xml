@@ -69,6 +69,7 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_xuankedetail_listivew"
         android:layout_width="match_parent"
+        android:layoutAnimation="@anim/anim_listview_item"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -77,4 +78,6 @@
 
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
 </RelativeLayout>

@@ -28,10 +28,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.SearchActivity;
 import com.ryw.zsxs.activity.XuanKeDetailActivity;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseFragment;
@@ -198,6 +198,8 @@ public class XuanKe_Fragment extends BaseFragment {
 
     private void initTablayout() {
         myTabAdapter = new MyTabAdapter();
+        if (leftTabLayout==null)
+            return;
         leftTabLayout.setTabAdapter(myTabAdapter);
         leftTabLayout.addOnTabSelectedListener(new VerticalTabLayout.OnTabSelectedListener() {
             @Override
@@ -336,9 +338,9 @@ public class XuanKe_Fragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_right_top_search:
-                Toast.makeText(mContext, "跳转到搜索", Toast.LENGTH_SHORT).show();
+               startActivity(SearchActivity.class,null);
                 break;
-            case R.id.ib_right_top_more:
+           case R.id.ib_right_top_more:
                 showPopupMenu(view);
                 break;
         }
