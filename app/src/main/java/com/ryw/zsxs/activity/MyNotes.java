@@ -8,6 +8,7 @@ import com.ryw.zsxs.base.BaseActivity;
 
 /**
  * Created by Zhao on 2017/6/24.
+ * 个人中心------我的笔记
  */
 
 public class MyNotes extends BaseActivity {
