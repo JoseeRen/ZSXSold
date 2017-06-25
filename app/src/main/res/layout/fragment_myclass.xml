@@ -11,15 +11,15 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:layout_below="@id/a"
     android:layout_width="match_parent"
     android:layout_height="150dp">
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:padding="5dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/circleImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/guodu_icon"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="2dp" />
+      />
     <LinearLayout
         android:orientation="vertical"
         android:layout_toRightOf="@id/circleImageView"

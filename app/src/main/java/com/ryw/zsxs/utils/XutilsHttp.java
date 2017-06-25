@@ -31,7 +31,7 @@ public class XutilsHttp {
     private Handler handler;
     private ImageOptions options;
 
-    private XutilsHttp() {
+    public XutilsHttp() {
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -150,6 +150,7 @@ public class XutilsHttp {
         x.http().get(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
+
                 onSuccessResponse(result, callback);
             }
 

@@ -4,16 +4,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout style="@style/usercenter_header_llbkg">
+    <LinearLayout
+        style="@style/usercenter_header_llbkg">
 
         <ImageView
             android:id="@+id/iv_useraccount_back"
             style="@style/usercenter_header_ivback" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:text="账户中心"
             android:textColor="#fff"
             android:textSize="22sp" />

@@ -16,3 +16,9 @@ build.gradle
 *.ap_
 local.properties
 proguard/
+*.json
+*.class
+*.dex
+/pulltorefresh_library
+*.properties
+merge.xml
