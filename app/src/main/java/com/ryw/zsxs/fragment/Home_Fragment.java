@@ -16,12 +16,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.ksdrActivity;
 import com.ryw.zsxs.base.BaseFragment;
+import com.ryw.zsxs.bean.GetZTBean;
 import com.ryw.zsxs.bean.GetslidesBean;
 import com.ryw.zsxs.utils.XutilsHttp;
 
@@ -29,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -41,14 +46,28 @@ public class Home_Fragment extends BaseFragment {
 
 
     public static Home_Fragment instance = null;
-
+    @BindView(R.id.layoutFooter)
+    LinearLayout layoutFooter;
     @BindView(R.id.fragment_home_vp)
-
     ViewPager fragmentHomeVp;
-    Unbinder unbinder;
     @BindView(R.id.home_ll)
     LinearLayout homeLl;
+    @BindView(R.id.home_first_ll)
+    LinearLayout homeFirstLl;
+    @BindView(R.id.home_tow_ll)
+    LinearLayout homeTowLl;
+    @BindView(R.id.home_three_ll)
+    LinearLayout homeThreeLl;
+    @BindView(R.id.home_four_ll)
+    LinearLayout homeFourLl;
+    @BindView(R.id.homefragment_rl_tuijian)
+    RelativeLayout homefragmentRlTuijian;
+    @BindView(R.id.home_gv)
+    GridView homeGv;
+    Unbinder unbinder;
     Unbinder unbinder1;
+
+
     private int preSelected = 0;//前一个选中点的位置
     private List<GetslidesBean.SlidesBean> slideslist;
 
@@ -63,6 +82,8 @@ public class Home_Fragment extends BaseFragment {
             handler.sendEmptyMessageDelayed(0, 3000);
         }
     };
+    private List<GetZTBean.ListBean> picturelist;
+    private GetZTBean getslidesBean;
 
     public static Home_Fragment getInstance() {
         if (instance == null) {
@@ -75,7 +96,9 @@ public class Home_Fragment extends BaseFragment {
     public void init(Bundle savedInstanceState) {
         //请求服务器的数据
         getDataFromeNet();
+
     }
+
 
     private void getDataFromeNet() {
         //借口地址
@@ -124,6 +147,52 @@ public class Home_Fragment extends BaseFragment {
         handler.sendEmptyMessageDelayed(0, 3000);
 
 
+    }
+
+
+    private void getDatainternet(int i) {
+        String url = "http://api.chinaplat.com/getval_2017?Action=GetZT&Types=" + i;
+        XutilsHttp.getInstance().get(url, null, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                //解析数据2017
+                parsedatell(result);
+            }
+        });
+
+    }
+
+    //2017数据的解析
+    private void parsedatell(String result) {
+        Gson gson = new Gson();
+        GetZTBean getslidesBean = gson.fromJson(result, GetZTBean.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("getztBean", getslidesBean);
+        startActivity(ksdrActivity.class, bundle);
+
+    }
+
+
+    //2017的点击事件
+
+    @OnClick({R.id.home_first_ll, R.id.home_tow_ll, R.id.home_three_ll, R.id.home_four_ll})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.home_first_ll:
+                getDatainternet(1);
+                break;
+            case R.id.home_tow_ll:
+                getDatainternet(2);
+                break;
+            case R.id.home_three_ll:
+                getDatainternet(3);
+                break;
+            case R.id.home_four_ll:
+                getDatainternet(4);
+                break;
+
+
+        }
     }
 
 

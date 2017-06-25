@@ -11,7 +11,7 @@
     <color name="white_text">#fff</color>
     <color name="TextColorFocus">#338534</color>
     <color name="colorPrimary">#338534</color>
-    <color name="homefragmentline">#545657</color>
+    <color name="homefragmentline">#f4e8e8e8</color>
 
 
 </resources>
