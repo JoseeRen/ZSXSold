@@ -10,3 +10,9 @@
 /gradle
 gradle.properties
 build.gradle
+*.class
+*.dex
+*.apk
+*.ap_
+local.properties
+proguard/

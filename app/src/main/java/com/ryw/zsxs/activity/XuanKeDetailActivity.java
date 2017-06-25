@@ -91,8 +91,7 @@ public class XuanKeDetailActivity extends BaseActivity {
     private int pageCount = 1;
     CourseListBean courseListBean = null;
     private KCTypes kcTypes;
-    //排序  默认是0
-    private int orde = 0;
+
     private String[] ords = {"", "hot", "time", "", "moneyDown", "moneyUP"};
     private PopupWindow popupWindow;
 
