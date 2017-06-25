@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.ryw.zsxs.R;
 import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
+//import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyNotes;
 import com.ryw.zsxs.activity.MyProblem;
 import com.ryw.zsxs.activity.UserAccountActivity;

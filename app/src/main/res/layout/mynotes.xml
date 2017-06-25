@@ -11,6 +11,7 @@
         <TextView
             style="@style/usercenter_header_title"
             android:text="我的笔记" />
+
     </LinearLayout>
 
 
@@ -54,6 +55,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </RadioGroup>
+    <com.ryw.zsxs.view.MyViewpager
+        android:id="@+id/mynotes_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.ryw.zsxs.view.MyViewpager>
 
 
 </LinearLayout>
