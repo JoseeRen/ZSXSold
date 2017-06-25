@@ -51,8 +51,8 @@ public class UserJifenActivity extends BaseActivity  {
     private void initData() {
         HashMap<String, String> hashmap = new HashMap<>();
         hashmap.put("Action","getJifenRecords");
-        hashmap.put("acode", SpUtils.getString(mContext,"280d546cc83ab2140127b3a09b0ee265"));
-        hashmap.put("Uid", SpUtils.getString(mContext,"18733513882"));
+        hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
+        hashmap.put("Uid", SpUtils.getString(mContext,LoginAcitvity.USERNAME));
         XutilsHttp.getInstance().get(Constant.HOSTNAME, hashmap, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
