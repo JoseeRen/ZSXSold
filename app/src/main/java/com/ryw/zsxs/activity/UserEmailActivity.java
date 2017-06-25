@@ -7,6 +7,7 @@ import com.ryw.zsxs.base.BaseActivity;
 
 /**
  * Created by Y.Q on 2017/6/24.
+ * 个人信息页面 邮箱页面
  */
 
 public class UserEmailActivity extends BaseActivity {
