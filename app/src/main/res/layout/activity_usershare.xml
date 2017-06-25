@@ -1,24 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 推荐有礼 -->
+<?xml version="1.0" encoding="utf-8"?><!-- 推荐有礼 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/usercenter_header_llbkg">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_usermessage_back"
-        style="@style/usercenter_header_ivback" />
+    <LinearLayout style="@style/usercenter_header_llbkg">
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textColor="#fff"
-        android:text="推荐有礼"
-        android:textSize="22sp"/>
-    <ImageView
-        android:id="@+id/iv_erweima"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:src="@mipmap/tuijianyouli_right" />
+        <ImageView
+            android:id="@+id/iv_usershare_back"
+            style="@style/usercenter_header_ivback" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="推荐有礼"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/iv_erweima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/tuijianyouli_right" />
+    </LinearLayout>
 </LinearLayout>
