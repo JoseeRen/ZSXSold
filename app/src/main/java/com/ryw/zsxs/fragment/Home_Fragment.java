@@ -28,6 +28,7 @@ import butterknife.Unbinder;
 public class Home_Fragment extends BaseFragment {
 
 
+
     public static Home_Fragment instance = null;
     @BindView(R.id.fragment_home_vp)
     ViewPager fragmentHomeVp;
