@@ -1,19 +1,22 @@
 package com.ryw.zsxs.activity;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
 
-import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 
 /**
- * Created by Y.Q on 2017/6/23.
- * 中仕个人中心 学识收支记录页面
+ * Created by Zhao on 2017/6/24.
+ * 积分商城
  */
 
-public class UserXueshiActivity extends BaseActivity {
+public class MyJiFen extends BaseActivity {
+
     @Override
     public int getContentViewResId() {
-        return R.layout.activity_userxueshi;
+        return 0;
     }
 
     @Override
@@ -21,3 +24,4 @@ public class UserXueshiActivity extends BaseActivity {
 
     }
 }
+

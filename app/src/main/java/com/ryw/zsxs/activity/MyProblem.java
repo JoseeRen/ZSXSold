@@ -4,13 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.ryw.zsxs.base.BaseActivity;
+
 /**
  * Created by Zhao on 2017/6/24.
  */
 
-public class MyProblem extends Activity {
+public class MyProblem extends BaseActivity {
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getContentViewResId() {
+        return 0;
+    }
+
+    @Override
+    public void init(Bundle savedInstanceState) {
+
     }
 }

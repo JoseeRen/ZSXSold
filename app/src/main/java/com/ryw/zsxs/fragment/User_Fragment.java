@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ryw.zsxs.R;
+import com.ryw.zsxs.activity.LoginAcitvity;
 import com.ryw.zsxs.activity.MyCollect;
 import com.ryw.zsxs.activity.MyProblem;
 import com.ryw.zsxs.activity.UserAccountActivity;
@@ -220,6 +221,8 @@ public class User_Fragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.btn_user_back:
                 // 点击退出跳转到登录页面
+                Intent login_intent = new Intent(mContext, LoginAcitvity.class);
+                startActivity(login_intent);
                 break;
             case R.id.rl_background:
                 // 切换背景图片

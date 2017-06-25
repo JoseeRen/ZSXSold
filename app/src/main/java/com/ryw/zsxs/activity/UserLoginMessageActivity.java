@@ -56,9 +56,16 @@ public class UserLoginMessageActivity extends BaseActivity implements View.OnCli
     @Override
     public void init(Bundle savedInstanceState) {
         initData();
+        initEvent();
     }
 
+
     private void initData() {
+
+    }
+
+
+    private void initEvent() {
         ivUserloginmessageBack.setOnClickListener(this);
         llUserpic.setOnClickListener(this);
         llUsernickname.setOnClickListener(this);
