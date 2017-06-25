@@ -32,23 +32,26 @@
         android:layout_height="100dp">
 
         <TextView
-            android:layout_weight="1"
+            android:id="@+id/textView3"
             style="@style/homefragment2017"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/erweima_app_back"
-            android:text="你你你"
-            />
+            android:text="你你你" />
+
         <TextView
-            android:layout_weight="1"
+            android:id="@+id/textView2"
             style="@style/homefragment2017"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/erweima_app_back"
-            android:text="你你你"
-            />
+            android:text="你你你" />
+
         <TextView
-            android:layout_weight="1"
+            android:id="@+id/textView"
             style="@style/homefragment2017"
+            android:layout_weight="1"
             android:drawableTop="@mipmap/erweima_app_back"
-            android:text="你你你"
-            />
+            android:text="你你你" />
+
         <TextView
             android:layout_weight="1"
             style="@style/homefragment2017"
@@ -87,7 +90,7 @@
                    android:textSize="12dp"
                    android:gravity="center_vertical"
                    android:textColor="@android:color/darker_gray"
-                   android:text="每周更新三门热点课程，只需一百积分哦！"
+                   android:text="每周更新三门热点课程，只需一百积分哦！ "
                    android:layout_weight="1"
                    android:layout_width="match_parent"
                    android:layout_height="0dp" />
