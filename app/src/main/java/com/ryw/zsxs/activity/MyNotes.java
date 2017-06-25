@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.ryw.zsxs.R;
 import com.ryw.zsxs.base.BaseActivity;
 
 /**
@@ -15,7 +16,7 @@ public class MyNotes extends BaseActivity {
 
     @Override
     public int getContentViewResId() {
-        return 0;
+        return R.layout.mynotes;
     }
 
     @Override

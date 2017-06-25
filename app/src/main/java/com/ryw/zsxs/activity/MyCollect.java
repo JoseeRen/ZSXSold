@@ -18,6 +18,7 @@ import com.ryw.zsxs.R;
 import com.ryw.zsxs.app.Constant;
 import com.ryw.zsxs.base.BaseActivity;
 import com.ryw.zsxs.bean.MyCollectBean;
+import com.ryw.zsxs.utils.SpUtils;
 import com.ryw.zsxs.utils.XutilsHttp;
 import com.ryw.zsxs.view.MyViewpager;
 
@@ -97,7 +98,7 @@ public class MyCollect extends BaseActivity implements View.OnClickListener {
 
         HashMap<String, String> hashmap = new HashMap<>();
         hashmap.put("Action", "getFavorite");
-//         hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
+         hashmap.put("acode", SpUtils.getString(mContext,LoginAcitvity.ACODE));
 //        hashmap.put("Uid",SpUtils.getString(mContext,LoginAcitvity.USERNAME));
         hashmap.put("acode", "280d546cc83ab2140127b3a09b0ee265");//这里以后需要改的
         hashmap.put("Uid", "18733513882");
