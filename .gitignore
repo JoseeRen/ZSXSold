@@ -15,4 +15,4 @@ build.gradle
 *.dex
 /pulltorefresh_library
 *.properties
-merger.xml
+merge.xml
