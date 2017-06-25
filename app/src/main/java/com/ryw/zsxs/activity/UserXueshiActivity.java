@@ -7,7 +7,7 @@ import com.ryw.zsxs.base.BaseActivity;
 
 /**
  * Created by Y.Q on 2017/6/23.
- * 中仕个人中心 学时收支记录页面
+ * 中仕个人中心 学识收支记录页面
  */
 
 public class UserXueshiActivity extends BaseActivity {
