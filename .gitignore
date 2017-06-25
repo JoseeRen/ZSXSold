@@ -10,3 +10,7 @@
 /gradle
 gradle.properties
 build.gradle
+*.json
+*.class
+*.dex
+/pulltorefresh_library
